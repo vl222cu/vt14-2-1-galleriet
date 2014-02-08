@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Galleriet</title>
+	<link href="~\Style.css" rel="stylesheet" />
 </head>
 <body>
     <form id="MyForm" runat="server">
@@ -25,7 +26,7 @@
 		</p>
 		<p>
 			<%-- Valideringsfelmeddelanden--%>
-			<asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+			<asp:ValidationSummary ID="ValidationSummary1" runat="server"
 				HeaderText="Fel inträffade! Korrigera felet och försök igen." />
 		</p>
 		<p>
