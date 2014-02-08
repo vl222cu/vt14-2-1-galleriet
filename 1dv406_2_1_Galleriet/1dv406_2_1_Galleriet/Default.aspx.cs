@@ -13,5 +13,12 @@ namespace _1dv406_2_1_Galleriet
 		{
 
 		}
+
+		protected void UploadButton_Click(object sender, EventArgs e)
+		{
+			if (IsValid)
+			{ 
+			}
+		}
 	}
 }
