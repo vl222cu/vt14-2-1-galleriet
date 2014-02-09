@@ -19,7 +19,7 @@
 				ErrorMessage="En fil måste väljas" ControlToValidate="MyFileUpload"
 				Display="None"></asp:RequiredFieldValidator>
 			<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-				ControlToValidate="MyFileUpload" ValidationExpression=".(?:jpg|gif|png)"
+				ControlToValidate="MyFileUpload" ValidationExpression=".*.(gif|GIF|jpg|JPG|png|PNG)"
 				ErrorMessage="Endast bilder av typerna gif, jpg eller png är tillåtna"
 				Display="None"></asp:RegularExpressionValidator>
 			<asp:Button ID="UploadButton" runat="server" Text="Ladda upp" OnClick="UploadButton_Click" />
