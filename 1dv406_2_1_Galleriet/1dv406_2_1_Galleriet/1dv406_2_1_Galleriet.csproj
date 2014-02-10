@@ -59,6 +59,14 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Error.html" />
+    <Content Include="Images\blomma1.png" />
+    <Content Include="Images\fisk1.png" />
+    <Content Include="Images\goj1.png" />
+    <Content Include="Images\klippor1.jpg" />
+    <Content Include="Images\rose1.jpg" />
+    <Content Include="Images\skog1.jpg" />
+    <Content Include="Images\skyline1.jpg" />
+    <Content Include="Images\udde1.png" />
     <Content Include="Style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -81,9 +89,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
