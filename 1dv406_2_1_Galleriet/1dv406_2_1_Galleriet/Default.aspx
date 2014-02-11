@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Galleriet</title>
-	<link href="~\Style.css" rel="stylesheet" />
+	<link href="~/Style.css" rel="stylesheet" />
 </head>
 <body>
     <form id="MyForm" runat="server">
@@ -28,6 +28,12 @@
 			<%-- Valideringsfelmeddelanden--%>
 			<asp:ValidationSummary ID="ValidationSummary1" runat="server"
 				HeaderText="Fel inträffade! Korrigera felet och försök igen." />
+		</p>
+		<p>
+			<%-- Visar vald bild i större format--%>
+			<asp:Panel ID="MainImagePanel" runat="server">
+				<asp:Image ID="MainImage" runat="server" ImageUrl="~/Images/goj1.png" Visible="false" />
+			</asp:Panel>
 		</p>
 		<p>
 			<%--Presenterar resultat--%>

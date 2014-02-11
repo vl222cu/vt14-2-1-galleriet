@@ -28,7 +28,7 @@ namespace _1dv406_2_1_Galleriet.Model
 		{
 			ApprovedExtensions = new Regex("^.*.(gif|GIF|jpg|JPG|png|PNG)$");
 
-			PhysicalUploadedImagesPath = Path.Combine(AppDomain.CurrentDomain.GetData("APPBASE").ToString(), "Images");
+			PhysicalUploadImagePath = Path.Combine(AppDomain.CurrentDomain.GetData("APPBASE").ToString(), "Images");
 
 			var invalidChars = new string(Path.GetInvalidFileNameChars());
 			SantizePath = new Regex(string.Format("[{0}]", Regex.Escape(invalidChars)));
@@ -38,8 +38,9 @@ namespace _1dv406_2_1_Galleriet.Model
 		// bildernas filnamn sorterade i boktavsordning
 		public IEnumerable<string> GetImageNames()
 		{
-			var sortedFiles = new DirectoryInfo(PhysicalUploadedImagesPath)
+			var sortedFiles = new DirectoryInfo(PhysicalUploadImagePath)
 				.GetFiles()
+				.Select(f => f.Name)
 				.OrderBy(f => f)
 				.ToList();
 
@@ -50,15 +51,15 @@ namespace _1dv406_2_1_Galleriet.Model
 		// namn finns i katalogen för uppladdade bilder
 		public static bool ImageExists(string name)
 		{
-			return File.Exists(PhysicalApplicationPath + name);
+			return File.Exists(PhysicalUploadImagePath + name);
 		}
 
 		// Metod som kontrollerar om den uppladdade filens
 		// innehåll är av typen gif, jpg eller png
-		public bool IsValidImage(Image image)
-		{ 
+		public static bool IsValidImage(Image image)
+		{
 			if (image.RawFormat.Guid == ImageFormat.Gif.Guid ||
-				image.RawFormat.Guid == ImageFormat.Jpg.Guid ||
+				image.RawFormat.Guid == ImageFormat.Jpeg.Guid ||
 				image.RawFormat.Guid == ImageFormat.Png.Guid)
 			{
 				return true;
@@ -68,9 +69,11 @@ namespace _1dv406_2_1_Galleriet.Model
 
 		// Metod som verifierar, kontrollerar och sparar bild 
 		// samt skapar och sparar en tumnagelbild
-		public string SaveImage(Stream stream, string fileName)
+		public static string SaveImage(Stream stream, string fileName)
 		{
-			if (!IsValidImage(fileName))
+			var image = System.Drawing.Image.FromStream(stream);
+
+			if (!IsValidImage(image))
 			{
 				throw new ArgumentException("Bilden har fel MIME-typ");
 			}
@@ -83,17 +86,16 @@ namespace _1dv406_2_1_Galleriet.Model
 
 				while (File.Exists(fileName))
 				{
-					fileName = string.Format("{0}({1}){2}", fileNameOnly, count++, extension);				
+					fileName = string.Format("{0}({1}){2}", fileNameOnly, count++, extension);
 				}
 			}
 
 			// Sparar bilden
-			var image = System.Drawing.Image.FromStream(stream);
-			image.Save(PhysicalUploadedImagesPath + fileName);
+			image.Save(PhysicalUploadImagePath + fileName);
 
 			// Skapar och sparar tumnagel
 			var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
-			thumbnail.Save(PhysicalUploadedImagesPath + fileName);
+			thumbnail.Save(PhysicalUploadImagePath + @"\Thumbnails" + fileName);
 
 			return fileName;
 		}
