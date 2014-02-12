@@ -38,12 +38,13 @@ namespace _1dv406_2_1_Galleriet.Model
 		// bildernas filnamn sorterade i boktavsordning
 		public IEnumerable<ThumbImage> GetImageNames()
 		{
-			var sortedFiles = new DirectoryInfo(PhysicalUploadImagePath);
+			var sortedFiles = new DirectoryInfo(Path.Combine(PhysicalUploadImagePath, "Thumbnails"));
 			return (from fi in sortedFiles.GetFiles()
 					select new ThumbImage
 					{
 						Name = fi.Name,
-						ThumbImgUrl = "Images/" + fi.Name
+						ImgFileUrl = Path.Combine(PhysicalUploadImagePath, "Thumbnails"),
+						ThumbImgUrl = Path.Combine("Images/Thumbnails/", fi.Name)
 					}).OrderBy(fi => fi.Name).ToList();
 		}
 
@@ -51,7 +52,7 @@ namespace _1dv406_2_1_Galleriet.Model
 		// namn finns i katalogen för uppladdade bilder
 		public static bool ImageExists(string name)
 		{
-			return File.Exists(PhysicalUploadImagePath + name);
+			return File.Exists(Path.Combine(PhysicalUploadImagePath, name));
 		}
 
 		// Metod som kontrollerar om den uppladdade filens
@@ -72,6 +73,7 @@ namespace _1dv406_2_1_Galleriet.Model
 		public static string SaveImage(Stream stream, string fileName)
 		{
 			var image = System.Drawing.Image.FromStream(stream);
+			fileName = SantizePath.Replace(fileName, "");
 
 			if (!IsValidImage(image))
 			{
@@ -90,11 +92,11 @@ namespace _1dv406_2_1_Galleriet.Model
 				}
 			}
 
-			// Sparar bilden
-			image.Save(PhysicalUploadImagePath + fileName);
-
-			// Skapar och sparar tumnagel
+			// Skapar tumnagel
 			var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
+
+			// Sparar bild och tumnagel
+			image.Save(Path.Combine(PhysicalUploadImagePath, fileName));
 			thumbnail.Save(PhysicalUploadImagePath + @"\Thumbnails\" + fileName);
 
 			return fileName;

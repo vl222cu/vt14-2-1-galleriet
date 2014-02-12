@@ -38,6 +38,7 @@ namespace _1dv406_2_1_Galleriet
 				if (MyFileUpload.HasFile)
 				{
 					Gallery.SaveImage(MyFileUpload.FileContent, MyFileUpload.FileName);
+					StatusLabel.Visible = true;
 				}
 			}
 		}

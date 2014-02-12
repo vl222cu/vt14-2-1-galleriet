@@ -31,8 +31,8 @@
 					ItemType="_1dv406_2_1_Galleriet.Model.ThumbImage" 
 					SelectMethod="ThumbsRepeater_GetData">
 					<ItemTemplate>
-						<asp:HyperLink ID="ThumbsHyperLink" runat="server" NavigateUrl='<%# Item.Name %>'>
-							<asp:Image ID="ThumbImage" runat="server" ImageUrl='<%# Item.ThumbImgUrl %>' Width="65" Height="50" />
+						<asp:HyperLink ID="ThumbsHyperLink" runat="server" NavigateUrl='<%# Item.ImgFileUrl %>'>
+							<asp:Image ID="ThumbImage" runat="server" ImageUrl='<%# Item.ThumbImgUrl %>' />
 						</asp:HyperLink>
 					</ItemTemplate>
 				</asp:Repeater>
