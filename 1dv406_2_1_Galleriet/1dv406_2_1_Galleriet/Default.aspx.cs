@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 using _1dv406_2_1_Galleriet.Model;
 
 
@@ -13,6 +14,18 @@ namespace _1dv406_2_1_Galleriet
 {
 	public partial class Default : System.Web.UI.Page
 	{
+		// Fält
+		private Gallery _gallery;
+
+		// Egenskap 
+		public Gallery Gallery 
+		{ 
+			get 
+			{ 
+				return _gallery ?? (_gallery = new Gallery()); 
+			}
+		}
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
@@ -27,6 +40,11 @@ namespace _1dv406_2_1_Galleriet
 					Gallery.SaveImage(MyFileUpload.FileContent, MyFileUpload.FileName);
 				}
 			}
+		}
+
+		public IEnumerable<_1dv406_2_1_Galleriet.Model.ThumbImage> ThumbsRepeater_GetData()
+		{
+			return Gallery.GetImageNames();
 		}
 	}
 }

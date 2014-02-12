@@ -36,15 +36,15 @@ namespace _1dv406_2_1_Galleriet.Model
 
 		// Metod som returnerar en referens innehållande
 		// bildernas filnamn sorterade i boktavsordning
-		public IEnumerable<string> GetImageNames()
+		public IEnumerable<ThumbImage> GetImageNames()
 		{
-			var sortedFiles = new DirectoryInfo(PhysicalUploadImagePath)
-				.GetFiles()
-				.Select(f => f.Name)
-				.OrderBy(f => f)
-				.ToList();
-
-			return sortedFiles;
+			var sortedFiles = new DirectoryInfo(PhysicalUploadImagePath);
+			return (from fi in sortedFiles.GetFiles()
+					select new ThumbImage
+					{
+						Name = fi.Name,
+						ThumbImgUrl = "Images/" + fi.Name
+					}).OrderBy(fi => fi.Name).ToList();
 		}
 
 		// Metod som kontrollerar om en bild med angivet
@@ -95,7 +95,7 @@ namespace _1dv406_2_1_Galleriet.Model
 
 			// Skapar och sparar tumnagel
 			var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
-			thumbnail.Save(PhysicalUploadImagePath + @"\Thumbnails" + fileName);
+			thumbnail.Save(PhysicalUploadImagePath + @"\Thumbnails\" + fileName);
 
 			return fileName;
 		}
