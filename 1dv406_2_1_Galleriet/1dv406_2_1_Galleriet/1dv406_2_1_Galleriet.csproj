@@ -59,12 +59,6 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Error.html" />
-    <Content Include="Images\blomma1.png" />
-    <Content Include="Images\fisk1.png" />
-    <Content Include="Images\goj1.png" />
-    <Content Include="Images\rose1.jpg" />
-    <Content Include="Images\skog1.jpg" />
-    <Content Include="Images\Thumbnails\rosa1.jpg" />
     <Content Include="Style.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -90,7 +84,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Thumbs\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

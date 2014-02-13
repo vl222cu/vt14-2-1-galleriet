@@ -28,7 +28,13 @@ namespace _1dv406_2_1_Galleriet
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			var fileName = Request.QueryString["img"];
 
+			if (Gallery.ImageExists(fileName))
+			{
+				MainImage.Visible = true;
+				MainImage.ImageUrl = "~/Images/" + fileName;
+			}
 		}
 
 		protected void UploadButton_Click(object sender, EventArgs e)
