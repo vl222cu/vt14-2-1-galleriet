@@ -18,7 +18,7 @@ namespace _1dv406_2_1_Galleriet
 		private Gallery _gallery;
 
 		// Egenskap 
-		public Gallery Gallery 
+		private Gallery Gallery 
 		{ 
 			get 
 			{ 
@@ -30,10 +30,26 @@ namespace _1dv406_2_1_Galleriet
 		{
 			var fileName = Request.QueryString["img"];
 
-			if (Gallery.ImageExists(fileName))
+			// Visar bild i större format 
+			if (fileName != null)
 			{
+				Gallery.ImageExists(fileName);
 				MainImage.Visible = true;
 				MainImage.ImageUrl = "~/Images/" + fileName;
+			}
+
+			// Vid lyckad uppladdning visas den uppladdade bilden
+			if (Request.QueryString["uploaded"] == "success")
+			{
+				StatusLabel.Visible = true;
+				StatusLabel.Text = String.Format("Bilden '{0}' har sparats.", fileName);
+			}
+
+			// Vid misslyckad uppladdning visas ett felmeddelande
+			if (Request.QueryString["uploaded"] == "failed")
+			{
+				StatusLabel.Visible = true;
+				StatusLabel.Text = String.Format("Ett fel inträffade då bilden '{0}' skulle överföras.", fileName);
 			}
 		}
 
@@ -43,8 +59,15 @@ namespace _1dv406_2_1_Galleriet
 			{
 				if (MyFileUpload.HasFile)
 				{
-					Gallery.SaveImage(MyFileUpload.FileContent, MyFileUpload.FileName);
-					StatusLabel.Visible = true;
+					try
+					{
+						Gallery.SaveImage(MyFileUpload.FileContent, MyFileUpload.FileName);
+						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=success");
+					}
+					catch (Exception)
+					{
+						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=failed");
+					}
 				}
 			}
 		}

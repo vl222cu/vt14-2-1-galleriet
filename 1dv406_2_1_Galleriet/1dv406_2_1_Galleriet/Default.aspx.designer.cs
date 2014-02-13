@@ -85,6 +85,15 @@ namespace _1dv406_2_1_Galleriet {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
+        /// StatusLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StatusLabel;
+        
+        /// <summary>
         /// MainImagePanel control.
         /// </summary>
         /// <remarks>
@@ -101,14 +110,5 @@ namespace _1dv406_2_1_Galleriet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image MainImage;
-        
-        /// <summary>
-        /// StatusLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatusLabel;
     }
 }
