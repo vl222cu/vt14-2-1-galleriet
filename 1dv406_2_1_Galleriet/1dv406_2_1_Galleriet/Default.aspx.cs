@@ -38,7 +38,7 @@ namespace _1dv406_2_1_Galleriet
 				MainImage.ImageUrl = "~/Images/" + fileName;
 			}
 
-			// Vid lyckad uppladdning visas den uppladdade bilden
+			// Vid lyckad uppladdning visas ett rättsmeddelande
 			if (Request.QueryString["uploaded"] == "success")
 			{
 				StatusLabel.Visible = true;
@@ -62,19 +62,33 @@ namespace _1dv406_2_1_Galleriet
 					try
 					{
 						Gallery.SaveImage(MyFileUpload.FileContent, MyFileUpload.FileName);
-						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=success");
+						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=success", false);
 					}
 					catch (Exception)
 					{
-						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=failed");
+						Response.Redirect("?img=" + MyFileUpload.FileName + "&uploaded=failed", false);
 					}
 				}
 			}
 		}
-
+		// Metod som bundits till repeaterkontrollen
 		public IEnumerable<_1dv406_2_1_Galleriet.Model.ThumbImage> ThumbsRepeater_GetData()
 		{
 			return Gallery.GetImageNames();
+		}
+
+		// Event som markerar den uppladdade bildens tumnagel
+		protected void ThumbsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+		{
+			var fileName = Request.QueryString["img"];
+			var obj = (ThumbImage)e.Item.DataItem;
+
+			if (fileName == obj.Name)
+			{
+				var hyperLink = (HyperLink)e.Item.FindControl("ThumbsHyperLink");
+
+				hyperLink.CssClass = "Thumbnail active_thumb";
+			}
 		}
 	}
 }

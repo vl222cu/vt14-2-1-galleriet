@@ -111,4 +111,11 @@ h1 {
     color: #ff0000;
 }
 
+.Thumbnail {
+	display: inline-block;
+}
+
+.active_thumb {
+	border: 3px solid #00ff21;
+}
 

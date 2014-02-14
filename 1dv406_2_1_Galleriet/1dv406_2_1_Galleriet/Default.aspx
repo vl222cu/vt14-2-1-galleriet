@@ -31,9 +31,10 @@
 				<asp:Panel ID="ThumbsPanel" runat="server">
 					<asp:Repeater ID="ThumbsRepeater" runat="server"
 						ItemType="_1dv406_2_1_Galleriet.Model.ThumbImage"
-						SelectMethod="ThumbsRepeater_GetData">
+						SelectMethod="ThumbsRepeater_GetData"
+						OnItemDataBound="ThumbsRepeater_ItemDataBound">
 						<ItemTemplate>
-							<asp:HyperLink ID="ThumbsHyperLink" runat="server" NavigateUrl='<%# Item.ImgFileUrl %>'>
+							<asp:HyperLink ID="ThumbsHyperLink" runat="server" NavigateUrl='<%# Item.ImgFileUrl %>' CssClass="Thumbnail">
 								<asp:Image ID="ThumbImage" runat="server" ImageUrl='<%# Item.ThumbImgUrl %>' />
 							</asp:HyperLink>
 						</ItemTemplate>
